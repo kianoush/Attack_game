@@ -1,3 +1,4 @@
+""" Enemy Class """
 import pygame
 import math
 
