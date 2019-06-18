@@ -3,11 +3,10 @@ import os
 from .enemy import Enemy
 
 
-class Scorpion(Enemy):
+class Wizard(Enemy):
 
     def __init__(self):
-        super(Scorpion, self).__init__()
-
+        super(Wizard, self).__init__()
         self.imgs = []
 
         for x in range(9):
@@ -15,6 +14,8 @@ class Scorpion(Enemy):
             if x < 10:
                 add_str = "0" + add_str
             self.imgs.append(pygame.transform.scale(
-                pygame.image.load(os.path.join("game_assets/enemies/1/", "1_enemies_1_RUN_0" + add_str + ".png")),
+                pygame.image.load(os.path.join("game_assets/enemies/3/", "2_enemies_1_RUN_0" + add_str + ".png")),
                 (64, 64)))
+
+
 

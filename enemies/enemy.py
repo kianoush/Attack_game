@@ -3,7 +3,7 @@ import pygame
 import math
 
 class Enemy:
-    imgs = []
+
 
     def __init__(self):
 
@@ -21,6 +21,8 @@ class Enemy:
         self.path_pos = 0
         self.move_count = 0
         self.move_dis = 0
+        self.imgs = []
+        self.flipped = False
 
 
     def draw(self, win):
@@ -30,9 +32,9 @@ class Enemy:
         :return:
         """
 
-        self.img = self.imgs[self.animation_count//3]
+        self.img = self.imgs[self.animation_count]
         self.animation_count += 1
-        if self.animation_count >= len(self.imgs)*3:
+        if self.animation_count >= len(self.imgs):
             self.animation_count = 0
 
         win.blit(self.img, (self.x, self.y))
@@ -71,8 +73,17 @@ class Enemy:
         self.move_count += 1
         dirn = (x2-x1, y2-y1)
 
-        move_x, move_y = (self.x + dirn[0] + self.move_count, self.y + dirn[1] + self.move_count)
-        self.dis += math.sqrt((move_x - x1) ** 2 + (move_y - y1) ** 2)
+        if dirn[0] < 0 and not(self.flipped):
+            self.flipped = True
+            for x, img in enumerate(self.imgs):
+                self.imgs[x] = pygame.transform.flip(img, True, False)
+
+
+        move_x, move_y = ((self.x + dirn[0] + self.move_count), (self.y + dirn[1] + self.move_count))
+        self.dis += (math.sqrt((move_x - x1) ** 2 + (move_y - y1) ** 2))
+
+        self.x = move_x
+        self.y = move_y
 
         # Go to next point
         if self.dis >= move_dis:
@@ -82,8 +93,7 @@ class Enemy:
             if self.path_pos >= len(self.path):
                 return False
 
-        self.x = move_x
-        self.y = move_y
+
         return True
 
     def hit(self):
