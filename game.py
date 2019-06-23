@@ -4,7 +4,7 @@ import os
 from enemies.scorpion import Scorpion
 from enemies.club import Club
 from enemies.wizard import Wizard
-
+from towers.archerTower import ArcherTowerLong
 
 
 class Game:
@@ -13,7 +13,7 @@ class Game:
         self.height = 700
         self.win = pygame.display.set_mode((self.width, self.height))
         self.enemys = [Club()]
-        self.towers = []
+        self.towers = [ArcherTowerLong(400,400)]
         self.lives = 10
         self.money = 100
         self.bg = pygame.image.load(os.path.join("game_assets", "bg.png"))
@@ -55,13 +55,18 @@ class Game:
 
     def draw(self):
         self.win.blit(self.bg, (0, 0))
-        for p in self.clicks:# remove
-            pygame.draw.circle(self.win, (255,0,0),(p[0], p[1]), 5,0 )# remove
-
+        for p in self.clicks: # remove
+            pygame.draw.circle(self.win, (255,0,0), (p[0], p[1]), 5, 0) # remove
 
         # draw enemies
         for en in self.enemys:
             en.draw(self.win)
+
+        # draw towers
+        for tw in self.towers:
+            tw.draw(self.win)
+
+
         pygame.display.update()
 
 
