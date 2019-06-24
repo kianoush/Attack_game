@@ -44,14 +44,14 @@ class Tower:
         call to sell the tower, return
         :return: int
         """
-        return  self.sell_price[self.level - 1]
+        return self.sell_price[self.level - 1]
 
     def upgrade(self):
         """
         upgrades the tower for a given cost
         :return: None
         """
-        self.level +=1
+        self.level += 1
 
     def get_upgrade_cost(self):
         """
