@@ -39,8 +39,8 @@ class Enemy:
             self.animation_count = 0
 
 
-        for dot in self.path:
-            pygame.draw.circle(win, (255, 0, 0), dot, 10, 0)
+        #for dot in self.path:
+            #pygame.draw.circle(win, (255, 0, 0), dot, 10, 0)
 
         win.blit(self.img, (self.x - self.img.get_width()/2, self.y - self.img.get_height()/2 - 23))
         self.draw_health_bar(win)
@@ -123,13 +123,13 @@ class Enemy:
                         self.path_pos += 1
 
 
-    def hit(self):
+    def hit(self, damage):
         """
         Returns if an enemy has died and removes one health
         each call
         :return:
         """
-        self.health -= 1
+        self.health -= damage
         if self.health <= 0:
             return True
         return False
