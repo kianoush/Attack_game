@@ -23,7 +23,7 @@ class Tower:
         :return: None
         """
         img = self.tower_imgs[self.level - 1]
-        win.blit(img, (self.x/img.get_width()//2, self.y/img.get_height()//2))
+        win.blit(img, (self.x-img.get_width()//2, self.y-img.get_height()//2))
 
     def click(self, X, Y):
         """
@@ -36,7 +36,6 @@ class Tower:
         if X < self.x + self.width and X >= self.x:
             if Y <= self.y + self.health and Y >= self.y:
                 return True
-
         return False
 
     def sell(self):

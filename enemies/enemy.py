@@ -79,6 +79,8 @@ class Enemy:
         length = math.sqrt((dirn[0])**2 + (dirn[1])**2)
         dirn = (dirn[0]/length, dirn[1]/length)
 
+
+        # rotate the enemy
         if dirn[0] < 0 and not(self.flipped):
             self.flipped = True
             for x, img in enumerate(self.imgs):
