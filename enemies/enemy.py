@@ -23,6 +23,7 @@ class Enemy:
         self.move_dis = 0
         self.imgs = []
         self.flipped = False
+        self.max_health = 0
 
 
     def draw(self, win):
@@ -44,6 +45,17 @@ class Enemy:
         win.blit(self.img, (self.x - self.img.get_width()/2, self.y - self.img.get_height()/2 - 23))
         self.move()
 
+    def health_bar(self, win):
+        """
+        draw health bar above enemy
+        :param win: surface
+        :return: None
+        """
+        length = 50
+        move_by = round(length / self.max_health)
+        lealth_bar = move_by * self.health
+
+        pygame.draw.rect()
 
     def collide (self, X, Y):
         """

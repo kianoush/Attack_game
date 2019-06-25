@@ -9,6 +9,8 @@ class Scorpion(Enemy):
         super(Scorpion, self).__init__()
 
         self.imgs = []
+        self.max_health = 1
+        self.health = self.max_health
 
         for x in range(9):
             add_str = str(x)
@@ -16,5 +18,5 @@ class Scorpion(Enemy):
                 add_str = "0" + add_str
             self.imgs.append(pygame.transform.scale(
                 pygame.image.load(os.path.join("game_assets/enemies/1/", "1_enemies_1_RUN_0" + add_str + ".png")),
-                (64, 64)))
+                (70, 70)))
 

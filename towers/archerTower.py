@@ -25,7 +25,6 @@ class ArcherTowerLong(Tower):
             self.archer_imgs.append(
                 pygame.image.load(os.path.join("game_assets/archer_towers/archer_top", str(x) + ".png")),)
 
-
     def draw(self, win):
         # draw range circle
         surface = pygame.Surface((self.range*4, self.range*4), pygame.SRCALPHA, 32)
@@ -45,8 +44,8 @@ class ArcherTowerLong(Tower):
         if self.left == True:
             add = -25
         else:
-            add = archer.get_width()/2
-        win.blit(archer, ((self.x + self.width/2 - 22), (self.y - archer.get_height() - 25)))
+            add = -archer.get_width()+10
+        win.blit(archer, ((self.x + self.width/25 + add), (self.y - archer.get_height() - 22)))
 
 
     def change_range(self, r):
