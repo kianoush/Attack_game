@@ -43,19 +43,21 @@ class Enemy:
             pygame.draw.circle(win, (255, 0, 0), dot, 10, 0)
 
         win.blit(self.img, (self.x - self.img.get_width()/2, self.y - self.img.get_height()/2 - 23))
+        self.draw_health_bar(win)
         self.move()
 
-    def health_bar(self, win):
+    def draw_health_bar(self, win):
         """
         draw health bar above enemy
         :param win: surface
         :return: None
         """
-        length = 50
+        length = 40
         move_by = round(length / self.max_health)
         lealth_bar = move_by * self.health
 
-        pygame.draw.rect()
+        pygame.draw.rect(win, (255,0,0),(self.x-35, self.y-50, length, 7), 0)
+        pygame.draw.rect(win, (0, 255, 0), (self.x-35, self.y -50, lealth_bar, 7), 0)
 
     def collide (self, X, Y):
         """
@@ -121,8 +123,6 @@ class Enemy:
                         self.path_pos += 1
 
 
-
-
     def hit(self):
         """
         Returns if an enemy has died and removes one health
@@ -130,5 +130,6 @@ class Enemy:
         :return:
         """
         self.health -= 1
-        if self.heralth <= 0:
+        if self.health <= 0:
             return True
+        return False
