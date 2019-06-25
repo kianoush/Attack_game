@@ -8,6 +8,11 @@ from towers.archerTower import ArcherTowerLong, ArcherTowerShort
 import time
 import random
 
+
+lives_img = pygame.image.load(os.path.join("game_assets/", "heart.png"))
+star_img = pygame.image.load(os.path.join("game_assets/", "star.png"))
+
+
 class Game:
     def __init__(self):
         self.width = 1200
@@ -79,6 +84,13 @@ class Game:
         # draw enemies
         for en in self.enemys:
             en.draw(self.win)
+
+        #draw lives
+        live = pygame.transform.scale(lives_img,(20,20))
+        start_x = self.width - live.get_width() - 10
+        for x in range(self.lives):
+            self.win.blit(live, (start_x - live.get_width()*x + 5, 10))
+
 
         pygame.display.update()
 
