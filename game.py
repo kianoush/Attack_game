@@ -7,6 +7,7 @@ from enemies.wizard import Wizard
 from towers.archerTower import ArcherTowerLong, ArcherTowerShort
 import time
 import random
+pygame.font.init()
 
 
 lives_img = pygame.image.load(os.path.join("game_assets/", "heart.png"))
@@ -26,6 +27,7 @@ class Game:
         self.bg = pygame.transform.scale(self.bg, (self.width, self.height))
         self.timer = time.time()
         self.clicks = [] #remove
+        self.life_font = pygame.font.SysFont("comicsans", 70)
 
 
 
@@ -65,6 +67,10 @@ class Game:
             for tw in self.towers:
                 tw.attack(self.enemys)
 
+            # if you lose
+            if self.lives <= 0:
+                print("You Lose")
+                run = False
 
             self.draw()
 
@@ -86,11 +92,13 @@ class Game:
             en.draw(self.win)
 
         #draw lives
-        live = pygame.transform.scale(lives_img,(20,20))
-        start_x = self.width - live.get_width() - 10
-        for x in range(self.lives):
-            self.win.blit(live, (start_x - live.get_width()*x + 5, 10))
+        text = self.life_font.render(str(self.lives), 1, (0,0,0))
 
+        life = pygame.transform.scale(lives_img,(20,20))
+        start_x = self.width - life.get_width() - 10
+
+        self.win.blit(text, (start_x - text.get_width() - 10, 10))
+        self.win.blit(life, (start_x, 10))
 
         pygame.display.update()
 
