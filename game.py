@@ -22,7 +22,7 @@ class Game:
         self.win = pygame.display.set_mode((self.width, self.height))
         self.enemys = [Club()]
         self.attack_towers = [ArcherTowerLong(200, 400), ArcherTowerLong(700, 300), ArcherTowerShort(900, 600)]
-        self.support_towers = [RangeTower(100, 100)]
+        self.support_towers = [DamageTower(200, 300)]
 
         self.lives = 10
         self.money = 100
@@ -58,11 +58,12 @@ class Game:
             # loop throuth enemies
             to_del = []
             for en in self.enemys:
-                if en.x < -15:
+                if en.x > 1260:
                     to_del.append(en)
 
             # delete all enemies off screen
             for d in to_del:
+                self.lives -= 1
                 self.enemys.remove(d)
 
             # loop through attack towers
