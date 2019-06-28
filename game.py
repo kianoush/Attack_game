@@ -54,20 +54,26 @@ class Game:
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     # look if you click on attack tower
-                    for tw in self.attack_towers:
-                        if tw.click(pos[0], pos[1]):
-                            tw.selected = True
-                            self.selected_tower = tw
-                        else:
-                            tw.selected = False
+                    btn_clicked = None
+                    if self.selected_tower:
+                        btn_clicked = self.selected_tower.menu.get_clicked(pos[0], pos[1])
+                        if btn_clicked:
+                            print(btn_clicked)
+                    if not(btn_clicked):
+                        for tw in self.attack_towers:
+                            if tw.click(pos[0], pos[1]):
+                                tw.selected = True
+                                self.selected_tower = tw
+                            else:
+                                tw.selected = False
 
-                    # look if you clicked on support towers
-                    for tw in self.support_towers:
-                        if tw.click(pos[0], pos[1]):
-                            tw.selected = True
-                            self.selected_tower = tw
-                        else:
-                            tw.selected = False
+                        # look if you clicked on support towers
+                        for tw in self.support_towers:
+                            if tw.click(pos[0], pos[1]):
+                                tw.selected = True
+                                self.selected_tower = tw
+                            else:
+                                tw.selected = False
 
             # loop throuth enemies
             to_del = []
@@ -101,8 +107,6 @@ class Game:
         self.win.blit(self.bg, (0, 0))
         for p in self.clicks: # remove
             pygame.draw.circle(self.win, (255,0,0), (p[0], p[1]), 5, 0) # remove
-
-
 
         # draw attack_towers
         for tw in self.attack_towers:

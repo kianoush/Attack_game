@@ -1,10 +1,13 @@
 import pygame
 import os
+pygame.font.init()
 
-
-
+star = pygame.transform.scale(pygame.image.load(os.path.join("game_assets", "star.png")), (40, 40))
 
 class Buttom:
+    """
+    Button class for menu objects
+    """
     def __init__(self,x,y, img, name):
         self.name = name
         self.img = img
@@ -29,21 +32,21 @@ class Buttom:
         win.blit(self.img, (self.x , self.y))
 
 
-
-
 class Menu:
     """
     menu for holding items
     """
-    def __init__(self,x,y,img):
+    def __init__(self,tower,x,y,img,item_cost):
         self.x = x
         self.y = y
         self.width = img.get_width()
         self.height = img.get_height()
         self.buttons = []
-        self.item_names = []
+        self.item_cost = item_cost
         self.items = 0
         self.bg = img
+        self.font = pygame.font.SysFont("comicsans", 30)
+        self.tower = tower
 
     def add_btn(self, img, name):
         """
@@ -53,11 +56,9 @@ class Menu:
         :return: None
         """
         self.items += 1
-        inc_x = self.width/self.items/2
         btn_x = self.x - self.bg.get_width()/2 +10
         btn_y = self.y - 120 +10
         self.buttons.append(Buttom(btn_x, btn_y, img, name))
-
 
 
     def draw(self, win):
@@ -69,6 +70,10 @@ class Menu:
         win.blit(self.bg, (self.x - self.bg.get_width()/2, self.y - 120))
         for item in self.buttons:
             item.draw(win)
+            win.blit(star, (item.x + item.width + 6 , item.y + 1))
+            text = self.font.render(str(self.item_cost[self.tower.level - 1]), 1, (255,255,255))
+            win.blit(text, (item.x + item.width + 1, item.y + star.get_height()))
+
 
     def get_clicked(self,X,Y):
         """
@@ -80,3 +85,4 @@ class Menu:
         for btn in self.buttons:
             if btn.click(X,Y):
                 return btn.name
+        return None
