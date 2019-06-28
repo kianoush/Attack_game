@@ -31,6 +31,7 @@ class Game:
         self.timer = time.time()
         self.clicks = [] #remove
         self.life_font = pygame.font.SysFont("comicsans", 45)
+        self.selected_tower = None
 
 
 
@@ -52,8 +53,21 @@ class Game:
                 pos = pygame.mouse.get_pos()
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    self.clicks.append(pos)# remove
-                    print(self.clicks)# remove
+                    # look if you click on attack tower
+                    for tw in self.attack_towers:
+                        if tw.click(pos[0], pos[1]):
+                            tw.selected = True
+                            self.selected_tower = tw
+                        else:
+                            tw.selected = False
+
+                    # look if you clicked on support towers
+                    for tw in self.support_towers:
+                        if tw.click(pos[0], pos[1]):
+                            tw.selected = True
+                            self.selected_tower = tw
+                        else:
+                            tw.selected = False
 
             # loop throuth enemies
             to_del = []
