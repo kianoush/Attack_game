@@ -1,5 +1,6 @@
 import pygame
 import os
+
 pygame.font.init()
 
 star = pygame.transform.scale(pygame.image.load(os.path.join("game_assets", "star.png")), (40, 40))
@@ -45,7 +46,7 @@ class Menu:
         self.item_cost = item_cost
         self.items = 0
         self.bg = img
-        self.font = pygame.font.SysFont("comicsans", 30)
+        self.font = pygame.font.SysFont("comicsans", 28)
         self.tower = tower
 
     def add_btn(self, img, name):
@@ -72,7 +73,7 @@ class Menu:
             item.draw(win)
             win.blit(star, (item.x + item.width + 6 , item.y + 1))
             text = self.font.render(str(self.item_cost[self.tower.level - 1]), 1, (255,255,255))
-            win.blit(text, (item.x + item.width + 1, item.y + star.get_height()))
+            win.blit(text, (item.x + item.width + 27 - text.get_width()/2,  item.y + star.get_height()-2))
 
 
     def get_clicked(self,X,Y):

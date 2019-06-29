@@ -3,6 +3,10 @@ from .tower import Tower
 import os
 import math
 import time
+from menu.menu import Menu
+
+menu_bg = pygame.transform.scale(pygame.image.load(os.path.join("game_assets", "menu.png")), (120, 70))
+upgrade_btn = pygame.transform.scale(pygame.image.load(os.path.join("game_assets", "upgrade.png")), (50, 50))
 
 
 tower_imgs_1 = []
@@ -32,6 +36,9 @@ class ArcherTowerLong(Tower):
         self.damage = 1
         self.width = self.height = 90
         self.original_damage = self.damage
+
+        self.menu = Menu(self, self.x, self.y, menu_bg, [2000, 5000, "MAX"])
+        self.menu.add_btn(upgrade_btn, "Upgrade")
 
 
     def draw(self, win):
@@ -121,4 +128,7 @@ class ArcherTowerShort(ArcherTowerLong):
             self.left = True
             self.damage = 2
             self.original_damage = self.damage
+
+            self.menu = Menu(self, self.x, self.y, menu_bg, [2500, 5500, "MAX"])
+            self.menu.add_btn(upgrade_btn, "Upgrade")
 
