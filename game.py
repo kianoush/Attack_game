@@ -6,6 +6,7 @@ from enemies.club import Club
 from enemies.wizard import Wizard
 from towers.archerTower import ArcherTowerLong, ArcherTowerShort
 from towers.supportTower import DamageTower, RangeTower
+from menu.menu import VerticalMenu
 import time
 import random
 pygame.font.init()
@@ -13,25 +14,26 @@ pygame.font.init()
 
 lives_img = pygame.image.load(os.path.join("game_assets/", "heart.png"))
 star_img = pygame.image.load(os.path.join("game_assets/", "star.png"))
-
+side_img = pygame.transform.scale(pygame.image.load(os.path.join("game_assets/", "side.png")),(100,350))
 
 class Game:
     def __init__(self):
-        self.width = 1250
+        self.width = 1350
         self.height = 700
         self.win = pygame.display.set_mode((self.width, self.height))
         self.enemys = [Club()]
         self.attack_towers = [ArcherTowerLong(200, 400), ArcherTowerLong(700, 300), ArcherTowerShort(900, 600)]
-        self.support_towers = [DamageTower(200, 300)]
+        self.support_towers = [DamageTower(280, 400)]
 
         self.lives = 10
-        self.money = 100
+        self.money = 2000
         self.bg = pygame.image.load(os.path.join("game_assets", "bg.png"))
         self.bg = pygame.transform.scale(self.bg, (self.width, self.height))
         self.timer = time.time()
         self.clicks = [] #remove
         self.life_font = pygame.font.SysFont("comicsans", 45)
         self.selected_tower = None
+        self.menu = VerticalMenu(self.width - side_img.get_width() + 50, 320, side_img)
 
 
 
@@ -59,7 +61,10 @@ class Game:
                         btn_clicked = self.selected_tower.menu.get_clicked(pos[0], pos[1])
                         if btn_clicked:
                             if btn_clicked == "Upgrade":
-                                self.selected_tower.upgrade()
+                                cost = self.selected_tower.get_upgrade_cost()
+                                if self.money >= cost:
+                                    self.money -= cost
+                                    self.selected_tower.upgrade()
 
                     if not(btn_clicked):
                         for tw in self.attack_towers:
@@ -90,7 +95,7 @@ class Game:
 
             # loop through attack towers
             for tw in self.attack_towers:
-                tw.attack(self.enemys)
+                self.money += tw.attack(self.enemys)
 
             # loop through support towers
             for tw in self.support_towers:
@@ -122,14 +127,24 @@ class Game:
         for en in self.enemys:
             en.draw(self.win)
 
+        # draw side menu
+        self.menu.draw(self.win)
+
         #draw lives
         text = self.life_font.render(str(self.lives), 1, (255,255,255))
-
         life = pygame.transform.scale(lives_img,(35,35))
         start_x = self.width - life.get_width() - 10
-
         self.win.blit(text, (start_x - text.get_width() - 1, 13))
         self.win.blit(life, (start_x, 10))
+
+        # draw money
+        text = self.life_font.render(str(self.money), 1, (255,255,255))
+        money = pygame.transform.scale(star_img,(35,35))
+        start_x = self.width - life.get_width() - 10
+        self.win.blit(text, (start_x - text.get_width() - 1, 70))
+        self.win.blit(money, (start_x, 63))
+
+
 
         pygame.display.update()
 
