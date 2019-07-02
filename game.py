@@ -14,16 +14,22 @@ pygame.font.init()
 
 lives_img = pygame.image.load(os.path.join("game_assets/", "heart.png"))
 star_img = pygame.image.load(os.path.join("game_assets/", "star.png"))
-side_img = pygame.transform.scale(pygame.image.load(os.path.join("game_assets/", "side.png")),(100,350))
+side_img = pygame.transform.scale(pygame.image.load(os.path.join("game_assets/", "side.png")),(60,250))
+
+buy_archer = pygame.transform.scale(pygame.image.load(os.path.join("game_assets/", "buy_archer.png")),(50,50))
+buy_archer1 = pygame.transform.scale(pygame.image.load(os.path.join("game_assets/", "buy_archer1.png")),(50,50))
+buy_damage = pygame.transform.scale(pygame.image.load(os.path.join("game_assets/", "buy_damage.png")),(50,50))
+buy_range = pygame.transform.scale(pygame.image.load(os.path.join("game_assets/", "buy_range.png")),(50,50))
+
 
 class Game:
     def __init__(self):
         self.width = 1350
         self.height = 700
         self.win = pygame.display.set_mode((self.width, self.height))
-        self.enemys = [Club()]
-        self.attack_towers = [ArcherTowerLong(200, 400), ArcherTowerLong(700, 300), ArcherTowerShort(900, 600)]
-        self.support_towers = [DamageTower(280, 400)]
+        self.enemys = []
+        self.attack_towers = [ArcherTowerLong(200, 470), ArcherTowerLong(740, 300), ArcherTowerShort(927, 620)]
+        self.support_towers = [DamageTower(280, 470)]
 
         self.lives = 10
         self.money = 2000
@@ -33,7 +39,11 @@ class Game:
         self.clicks = [] #remove
         self.life_font = pygame.font.SysFont("comicsans", 45)
         self.selected_tower = None
-        self.menu = VerticalMenu(self.width - side_img.get_width() + 50, 320, side_img)
+        self.menu = VerticalMenu(self.width - side_img.get_width() +30, 380, side_img)
+        self.menu.add_btn(buy_archer, "buy_archer", 500)
+        self.menu.add_btn(buy_archer1, "buy_archer_1", 750)
+        self.menu.add_btn(buy_damage, "buy_damage", 1000)
+        self.menu.add_btn(buy_range, "buy_range", 1000)
 
 
 
@@ -47,7 +57,7 @@ class Game:
                 self.enemys.append(random.choice([Club(), Scorpion(), Wizard()]))
 
             #pygame.time.delay(500)
-            clock.tick(30)
+            clock.tick(20)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False
@@ -129,6 +139,7 @@ class Game:
 
         # draw side menu
         self.menu.draw(self.win)
+
 
         #draw lives
         text = self.life_font.render(str(self.lives), 1, (255,255,255))

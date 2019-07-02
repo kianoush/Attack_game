@@ -18,18 +18,21 @@ class Buttom:
         self.width = self.img.get_width()
         self.height = self.img.get_height()
 
+    def draw(self, win):
+        win.blit(self.img, (self.x, self.y))
 
-def click(self, X, Y):
-    """
-    return if the position has collided with the menu
-    :param X: int
-    :param Y: int
-    :return: bool
-    """
-    if X <= self.x + self.width and X >= self.x:
-        if Y <= self.y + self.height and Y >= self.y:
-            return True
-    return False
+
+    def click(self, X, Y):
+        """
+        return if the position has collided with the menu
+        :param X: int
+        :param Y: int
+        :return: bool
+        """
+        if X <= self.x + self.width and X >= self.x:
+            if Y <= self.y + self.height and Y >= self.y:
+                return True
+        return False
 
 
 def draw(self, win):
@@ -41,8 +44,14 @@ class VerticalButton(Buttom):
     Button class for menu objects
     """
     def __init__(self,x,y, img, name, cost):
-        super(VerticalButton, self).__init(x,y,img,name)
+        super(VerticalButton, self).__init__(x,y,img,name)
         self.cost = cost
+
+    def draw(self, win):
+        win.blit(self.img, (self.x, self.y))
+
+
+
 
 
 class Menu:
@@ -69,8 +78,8 @@ class Menu:
         :return: None
         """
         self.items += 1
-        btn_x = self.x - self.bg.get_width()/2 +10
-        btn_y = self.y - 120 +10
+        btn_x = self.x - self.bg.get_width()/2 + 10
+        btn_y = self.y - 120 + 10
         self.buttons.append(Buttom(btn_x, btn_y, img, name))
 
     def get_item_cost(self):
@@ -130,9 +139,24 @@ class VerticalMenu(Menu):
         :return: None
         """
         self.items += 1
-        btn_x = self.x +10
-        btn_y = self.y + 10 + (self.items - 1) * 60
-        self.buttons.append(VerticalButtom(btn_x, btn_y, img, name, cost))
+        btn_x = self.x - 20
+        btn_y = self.y - 107 + (self.items - 1) * 60
+        self.buttons.append(VerticalButton(btn_x, btn_y, img, name, cost))
 
     def get_item_cost(self):
         return Exception("Not implemented")
+
+    def draw(self, win):
+        """
+        draws btns and menu bg
+        :param win: surface
+        :return: None
+        """
+
+        win.blit(self.bg, (self.x - self.bg.get_width()/2, self.y - 120))
+        for item in self.buttons:
+            item.draw(win)
+
+            win.blit(star, (item.x + item.width + 6, item.y + 1))
+            text = self.font.render(str(item.cost), 1, (255,255,255))
+            win.blit(text, (item.x + item.width + 50 - text.get_width()/2,  item.y + star.get_height()-2))
