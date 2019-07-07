@@ -27,7 +27,7 @@ support_tower_names = ["range", "damage"]
 # waves are in form
 # frequncy of enemies
 # ( #scorpian, #wizards, #clubs)
-wave_enemies = [Scorpion(), Wizard(), Club()]
+
 waves = [
     [20, 0, 0],
     [50, 0, 0],
@@ -49,8 +49,8 @@ class Game:
         self.height = 700
         self.win = pygame.display.set_mode((self.width, self.height))
         self.enemys = []
-        self.attack_towers = [ArcherTowerLong(200, 470), ArcherTowerLong(740, 300), ArcherTowerShort(927, 620)]
-        self.support_towers = [DamageTower(280, 470)]
+        self.attack_towers = [ArcherTowerLong(350, 470), ArcherTowerLong(740, 300), ArcherTowerShort(927, 620)]
+        self.support_towers = [DamageTower(270, 470)]
 
         self.lives = 10
         self.money = 2000
@@ -80,6 +80,7 @@ class Game:
             self.current_wave = waves[self.wave]
             self.pause = True
         else:
+            wave_enemies = [Scorpion(), Wizard(), Club()]
             for x in range(len(self.current_wave)):
                 if self.current_wave[x] != 0:
                     self.enemys.append(wave_enemies[x])

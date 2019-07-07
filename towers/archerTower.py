@@ -103,7 +103,7 @@ class ArcherTowerLong(Tower):
         enemy_closest.sort(key=lambda x: x.x)
         if len(enemy_closest) > 0:
             first_enemy = enemy_closest[0]
-            if self.archer_count == 6:
+            if self.archer_count == 30:
                 if first_enemy.hit(self.damage) == True:
                     money = first_enemy.money
                     enemies.remove(first_enemy)
