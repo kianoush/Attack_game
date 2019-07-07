@@ -152,8 +152,16 @@ class VerticalMenu(Menu):
         btn_y = self.y - 115 + (self.items - 1) * 68
         self.buttons.append(VerticalButton(btn_x, btn_y, img, name, cost))
 
-    def get_item_cost(self):
-        return Exception("Not implemented")
+    def get_item_cost(self, name):
+        """
+        gets cost of item
+        :param name: str
+        :return:int
+        """
+        for btn in self.buttons:
+            if btn.name == name:
+                return btn.cost
+        return -1
 
     def draw(self, win):
         """
