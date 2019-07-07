@@ -87,6 +87,6 @@ class Tower:
         """
         return self.price[self.level - 1]
 
-    def move(self):
+    def move(self,x,y):
         self.x = x
         self.y = y
