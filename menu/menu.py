@@ -16,7 +16,6 @@ class Buttom:
         self.x = menu.x - 50
         self.y = menu.y - 110
         self.menu = menu
-
         self.width = self.img.get_width()
         self.height = self.img.get_height()
 
@@ -49,6 +48,35 @@ class Buttom:
         """
         self.x = self.menu.x - 50
         self.y = self.menu.y - 110
+
+
+class PlayPauseButton(Buttom):
+    def __init__(self, play_img, pause_img, x, y):
+        self.img = play_img
+        self.play = play_img
+        self.pause = pause_img
+        self.x = x
+        self.y = y
+        self.width = self.img.get_width()
+        self.height = self.img.get_height()
+        self.paused = True
+
+
+    def draw(self, win):
+        if self.paused:
+            win.blit(self.play, (self.x, self.y))
+        else:
+            win.blit(self.pause, (self.x, self.y))
+
+
+    def change_img(self):
+        if self.pause:
+            self.pause = False
+            self.img = self.pause
+        else:
+            self.pause = True
+            self.img = self.play
+
 
 
 class VerticalButton(Buttom):

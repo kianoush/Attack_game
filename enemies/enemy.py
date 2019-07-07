@@ -34,17 +34,10 @@ class Enemy:
         """
 
         self.img = self.imgs[self.animation_count]
-        self.animation_count += 1
-        if self.animation_count >= len(self.imgs):
-            self.animation_count = 0
 
-
-        #for dot in self.path:
-            #pygame.draw.circle(win, (255, 0, 0), dot, 10, 0)
 
         win.blit(self.img, (self.x - self.img.get_width()/2, self.y - self.img.get_height()/2 - 23))
         self.draw_health_bar(win)
-        self.move()
 
     def draw_health_bar(self, win):
         """
@@ -79,6 +72,9 @@ class Enemy:
         Move enemy
         :return: None
         """
+        self.animation_count += 1
+        if self.animation_count >= len(self.imgs):
+            self.animation_count = 0
         x1, y1 = self.path[self.path_pos]
         if self.path_pos + 1 >= len(self.path):
             x2, y2 = (1210, 560)
