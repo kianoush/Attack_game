@@ -23,6 +23,26 @@ buy_range = pygame.transform.scale(pygame.image.load(os.path.join("game_assets/"
 
 attack_tower_names = ["archer", "archer2"]
 support_tower_names = ["range", "damage"]
+
+# waves are in form
+# frequncy of enemies
+# ( #scorpian, #wizards, #clubs)
+wave_enemies = [Scorpion(), Wizard(), Club()]
+waves = [
+    [20, 0, 0],
+    [50, 0, 0],
+    [100, 0, 0],
+    [0, 20, 0],
+    [0, 50, 0],
+    [0, 100, 0],
+    [20, 100, 0],
+    [50, 100, 0],
+    [100, 100, 0],
+    [20, 0, 100],
+    [200, 0, 150],
+    [200, 100, 200]
+]
+
 class Game:
     def __init__(self):
         self.width = 1350
@@ -46,8 +66,25 @@ class Game:
         self.menu.add_btn(buy_damage, "buy_damage", 1000)
         self.menu.add_btn(buy_range, "buy_range", 1000)
         self.moving_object = None
+        self.wave = 0
+        self.current_wave = waves[self.wave][:]
+        self.pause = False
 
-
+    def gen_enemies(self):
+        """
+        generate the next enemy or enemiest to show
+        :return: enemy
+        """
+        if sum(self.current_wave) == 0:
+            self.wave += 1
+            self.current_wave = waves[self.wave]
+            self.pause = True
+        else:
+            for x in range(len(self.current_wave)):
+                if self.current_wave[x] != 0:
+                    self.enemys.append(wave_enemies[x])
+                    self.current_wave[x] = self.current_wave[x]- 1
+                    break
 
 
     def run(self):
@@ -57,10 +94,12 @@ class Game:
         while run:
             clock.tick(200)
 
-            # gen monsters
-            if time.time() - self.timer >= random.randrange(1,5)/2:
-                self.timer = time.time()
-                self.enemys.append(random.choice([Club(), Scorpion(), Wizard()]))
+            if self.pause == False:
+                # gen monsters
+                if time.time() - self.timer >= random.randrange(1,5)/2:
+                    self.timer = time.time()
+                    self.gen_enemies()
+
 
             pos = pygame.mouse.get_pos()
 
