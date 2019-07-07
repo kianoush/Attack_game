@@ -14,7 +14,7 @@ pygame.font.init()
 
 lives_img = pygame.image.load(os.path.join("game_assets/", "heart.png"))
 star_img = pygame.image.load(os.path.join("game_assets/", "star.png"))
-side_img = pygame.transform.scale(pygame.image.load(os.path.join("game_assets/", "side.png")),(60,250))
+side_img = pygame.transform.scale(pygame.image.load(os.path.join("game_assets/", "side.png")),(60,280))
 
 buy_archer = pygame.transform.scale(pygame.image.load(os.path.join("game_assets/", "buy_archer.png")),(50,50))
 buy_archer1 = pygame.transform.scale(pygame.image.load(os.path.join("game_assets/", "buy_archer1.png")),(50,50))
@@ -39,7 +39,7 @@ class Game:
         self.clicks = [] #remove
         self.life_font = pygame.font.SysFont("comicsans", 45)
         self.selected_tower = None
-        self.menu = VerticalMenu(self.width - side_img.get_width() +30, 380, side_img)
+        self.menu = VerticalMenu(self.width - side_img.get_width() + 30, 380, side_img)
         self.menu.add_btn(buy_archer, "buy_archer", 500)
         self.menu.add_btn(buy_archer1, "buy_archer_1", 750)
         self.menu.add_btn(buy_damage, "buy_damage", 1000)

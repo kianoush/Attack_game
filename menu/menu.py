@@ -4,7 +4,7 @@ import os
 pygame.font.init()
 
 star = pygame.transform.scale(pygame.image.load(os.path.join("game_assets", "star.png")), (40, 40))
-
+star2 = pygame.transform.scale(pygame.image.load(os.path.join("game_assets", "star.png")), (20, 20))
 
 class Buttom:
     """
@@ -128,7 +128,7 @@ class VerticalMenu(Menu):
         self.buttons = []
         self.items = 0
         self.bg = img
-        self.font = pygame.font.SysFont("comicsans", 28)
+        self.font = pygame.font.SysFont("comicsans", 20)
 
 
     def add_btn(self, img, name, cost):
@@ -139,8 +139,8 @@ class VerticalMenu(Menu):
         :return: None
         """
         self.items += 1
-        btn_x = self.x - 20
-        btn_y = self.y - 107 + (self.items - 1) * 60
+        btn_x = self.x - 23
+        btn_y = self.y - 115 + (self.items - 1) * 68
         self.buttons.append(VerticalButton(btn_x, btn_y, img, name, cost))
 
     def get_item_cost(self):
@@ -157,6 +157,6 @@ class VerticalMenu(Menu):
         for item in self.buttons:
             item.draw(win)
 
-            win.blit(star, (item.x + item.width + 6, item.y + 1))
+            win.blit(star2, (item.x - 5, item.y + item.height - 4))
             text = self.font.render(str(item.cost), 1, (255,255,255))
-            win.blit(text, (item.x + item.width + 50 - text.get_width()/2,  item.y + star.get_height()-2))
+            win.blit(text, (item.x + item.width/2 - text.get_width()/4,  item.y + item.height ))
