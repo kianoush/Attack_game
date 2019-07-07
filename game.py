@@ -75,6 +75,7 @@ class Game:
         self.current_wave = waves[self.wave][:]
         self.pause = True
         self.playPauseButton = PlayPauseButton(play_btn, pause_btn, 10, self.height - 85)
+        #self.path = [] red point
 
     def gen_enemies(self):
         """
@@ -86,7 +87,7 @@ class Game:
                 self.wave += 1
                 self.current_wave = waves[self.wave]
                 self.pause = True
-                self.playPauseButton.puased = self.pause
+                self.playPauseButton.paused = self.pause
         else:
             wave_enemies = [Scorpion(), Wizard(), Club()]
             for x in range(len(self.current_wave)):
@@ -121,8 +122,11 @@ class Game:
                 if event.type == pygame.QUIT:
                     run = False
 
-                if event.type == pygame.MOUSEBUTTONUP:
-                    # if your moving an object and click
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    # if you are moving an object and click
+                    # self.path.append(pos)        red point
+                    # print(self.path)
+
                     if self.moving_object:
                         if self.moving_object.name in attack_tower_names:
                             self.attack_towers.append(self.moving_object)
@@ -206,8 +210,8 @@ class Game:
 
     def draw(self):
         self.win.blit(self.bg, (0, 0))
-        for p in self.clicks: # remove
-            pygame.draw.circle(self.win, (255,0,0), (p[0], p[1]), 5, 0) # remove
+        # for pos in self.path: # remove    red point
+        #     pygame.draw.circle(self.win, (255,0,0), pos, 5, 0) # remove
 
         # draw attack_towers
         for tw in self.attack_towers:
