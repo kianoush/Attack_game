@@ -21,8 +21,8 @@ buy_archer1 = pygame.transform.scale(pygame.image.load(os.path.join("game_assets
 buy_damage = pygame.transform.scale(pygame.image.load(os.path.join("game_assets/", "buy_damage.png")),(50,50))
 buy_range = pygame.transform.scale(pygame.image.load(os.path.join("game_assets/", "buy_range.png")),(50,50))
 
-attack_tower_names = ["archer","archer2"]
-support_tower_names = ["archer","archer2"]
+attack_tower_names = ["archer", "archer2"]
+support_tower_names = ["range", "damage"]
 class Game:
     def __init__(self):
         self.width = 1350

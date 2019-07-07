@@ -10,16 +10,16 @@ class Buttom:
     """
     Button class for menu objects
     """
-    def __init__(self,x,y, img, name):
+    def __init__(self,menu, img, name):
         self.name = name
         self.img = img
-        self.x = x
-        self.y = y
+        self.x = menu.x - 50
+        self.y = menu.y - 110
+        self.menu = menu
+
         self.width = self.img.get_width()
         self.height = self.img.get_height()
 
-    def draw(self, win):
-        win.blit(self.img, (self.x, self.y))
 
 
     def click(self, X, Y):
@@ -34,9 +34,12 @@ class Buttom:
                 return True
         return False
 
+    def draw(self, win):
+        win.blit(self.img, (self.x, self.y))
 
-def draw(self, win):
-    win.blit(self.img, (self.x, self.y))
+    def update(self):
+        self.x = self.menu.x - 50
+        self.y = self.menu.y - 110
 
 
 class VerticalButton(Buttom):
@@ -44,13 +47,13 @@ class VerticalButton(Buttom):
     Button class for menu objects
     """
     def __init__(self,x,y, img, name, cost):
-        super(VerticalButton, self).__init__(x,y,img,name)
+        self.name = name
+        self.img = img
+        self.x = x
+        self.y = y
+        self.width = self.img.get_width()
+        self.height = self.img.get_height()
         self.cost = cost
-
-    def draw(self, win):
-        win.blit(self.img, (self.x, self.y))
-
-
 
 
 
@@ -78,9 +81,7 @@ class Menu:
         :return: None
         """
         self.items += 1
-        btn_x = self.x - self.bg.get_width()/2 + 10
-        btn_y = self.y - 120 + 10
-        self.buttons.append(Buttom(btn_x, btn_y, img, name))
+        self.buttons.append(Buttom(self, img, name))
 
     def get_item_cost(self):
         """
@@ -114,6 +115,14 @@ class Menu:
             if btn.click(X,Y):
                 return btn.name
         return None
+
+    def update(self):
+        """
+        update menu and button location
+        :return: None
+        """
+        for btn in self.buttons:
+            btn.update()
 
 
 class VerticalMenu(Menu):
