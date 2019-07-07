@@ -11,6 +11,7 @@ upgrade_btn = pygame.transform.scale(pygame.image.load(os.path.join("game_assets
 
 tower_imgs_1 = []
 archer_imgs_1 = []
+
 # load archer tower images
 for x in range(7, 10):
     tower_imgs_1.append(pygame.transform.scale(
@@ -43,9 +44,18 @@ class ArcherTowerLong(Tower):
         self.menu.add_btn(upgrade_btn, "Upgrade")
 
     def get_upgrade_cost(self):
+        """
+        get the upgrade cost
+        :return: int
+        """
         return self.menu.get_item_cost()
 
     def draw(self, win):
+        """
+        draw the archer tower and animated archer
+        :param win: surface
+        :return: int
+        """
         super(ArcherTowerLong, self).draw_radius(win)
         super(ArcherTowerLong, self).draw(win)
 

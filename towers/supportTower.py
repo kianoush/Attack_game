@@ -2,7 +2,6 @@ import pygame
 from .tower import Tower
 import os
 import math
-import time
 
 
 range_imgs = [pygame.transform.scale(pygame.image.load(os.path.join("game_assets/support_towers", "4.png")),(90,90)),

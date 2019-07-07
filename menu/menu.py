@@ -35,9 +35,18 @@ class Buttom:
         return False
 
     def draw(self, win):
+        """
+        draws the button
+        :param win: surface
+        :return: None
+        """
         win.blit(self.img, (self.x, self.y))
 
     def update(self):
+        """
+        updates button position
+        :return: None
+        """
         self.x = self.menu.x - 50
         self.y = self.menu.y - 110
 
