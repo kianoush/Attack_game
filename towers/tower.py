@@ -54,11 +54,11 @@ class Tower:
 
     def draw_placement(self,win):
 
-            # draw range circle
+        # draw range circle
         surface = pygame.Surface((self.range*4, self.range*4), pygame.SRCALPHA, 32)
         pygame.draw.circle(surface, (0,0,255,100), (50,50), 50, 0)
 
-        win.blit(surface, (self.x - 45 , self.y - 45))
+        win.blit(surface, (self.x - 45, self.y - 45))
 
 
     def click(self, X, Y):

@@ -9,7 +9,13 @@ from towers.supportTower import DamageTower, RangeTower
 from menu.menu import VerticalMenu, PlayPauseButton
 import time
 import random
+import math
+import numpy as np
+import matplotlib.pyplot as plt
 pygame.font.init()
+
+path = [(12, 551), (159, 549), (334, 548), (405, 539), (454, 475), (455, 401), (521, 332), (620, 329), (668, 370), (690, 439), (715, 510), (771, 544), (843, 548), (1065, 542), (1269, 542), (1338, 544), (1191, 550)] #  change area (614, 429) ---> [(648, 397), (690, 381), (725, 353), (749, 318), (760, 275), (776, 229), (804, 194), (853, 172), (900, 167), (953, 164), (1007, 162), (1056, 172), (1084, 179), (1109, 194), (1129, 211), (1154, 218), (1185, 218), (1196, 217)]
+
 
 
 lives_img = pygame.image.load(os.path.join("game_assets/", "heart.png"))
@@ -134,7 +140,7 @@ class Game:
                             if tower.collide(self.moving_object):
                                 not_allowed = True
 
-                        if not not_allowed:
+                        if not not_allowed and self.point_to_line(self.moving_object):
                             if self.moving_object.name in attack_tower_names:
                                 self.attack_towers.append(self.moving_object)
                             elif self.moving_object.name in support_tower_names:
@@ -213,6 +219,30 @@ class Game:
             self.draw()
 
         pygame.quit()
+
+    def point_to_line(self,tower):
+        """
+        returns if you can place tower based on distance from path
+        :param tower: Tower
+        :return: bool
+        """
+        # find to closest points
+        closest = []
+        for point in path:
+            dis = math.sqrt((tower.x - point[0])**2 + (tower.y - point[1])**2)
+            closest.append([dis, point])
+
+        closest.sort(key=lambda x: x[0])
+
+        x = closest[0][1]
+        y = closest[1][1]
+
+        coefficients = np.polyfit(x, y, 1)
+
+
+        #dis = abs(line_vectore[0] * tower.x + line_vectore[1]*tower.y + c)/math.sqrt(line_vectore[0]**2 + line_vectore[1]**2)
+
+        return True
 
     def draw(self):
         self.win.blit(self.bg, (0, 0))
