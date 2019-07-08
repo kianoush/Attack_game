@@ -128,13 +128,19 @@ class Game:
                     # print(self.path)
 
                     if self.moving_object:
-                        if self.moving_object.name in attack_tower_names:
-                            self.attack_towers.append(self.moving_object)
-                        elif self.moving_object.name in support_tower_names:
-                            self.support_towers.append(self.moving_object)
+                        not_allowed = False
+                        tower_list = self.attack_towers[:] + self.support_towers[:]
+                        for tower in tower_list:
+                            if tower.collide(self.moving_object):
+                                not_allowed = True
 
-                        self.moving_object.moving = False
-                        self.moving_object = None
+                        if not not_allowed:
+                            if self.moving_object.name in attack_tower_names:
+                                self.attack_towers.append(self.moving_object)
+                            elif self.moving_object.name in support_tower_names:
+                                self.support_towers.append(self.moving_object)
+                            self.moving_object.moving = False
+                            self.moving_object = None
 
 
                     else:

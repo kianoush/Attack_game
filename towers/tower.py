@@ -56,7 +56,7 @@ class Tower:
 
             # draw range circle
         surface = pygame.Surface((self.range*4, self.range*4), pygame.SRCALPHA, 32)
-        pygame.draw.circle(surface, (155,0,0,100), (50,55), 50, 0)
+        pygame.draw.circle(surface, (0,0,255,100), (50,50), 50, 0)
 
         win.blit(surface, (self.x - 45 , self.y - 45))
 
@@ -115,7 +115,7 @@ class Tower:
         x2 = otherTower.x
         y2 = otherTower.y
 
-        dis = math.sqrt((x2 - self.x)**2 - (y2 - self.y)**2)
+        dis = math.sqrt((x2 - self.x)**2 + (y2 - self.y)**2)
         if dis >= 100:
             return False
         else:
