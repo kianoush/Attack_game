@@ -4,4 +4,5 @@
 
 ![](pic02.png)
 
-Runner_game is a tower defense video game. Unlike in other tower defense games, turrets can be placed anywhere and the enemies will go around them, forcing them to walk along any path the player makes. It is not possible to block the path however. 
+Attack_game is a tower defense video game.
+Tower defense (Attack) is a subgenre of strategy video game where the goal is to defend a player's territories or possessions by obstructing the enemy attackers, usually achieved by placing defensive structures on or along their path of attack This typically means building a variety of different structures that serve to automatically block, impede, attack or destroy enemies. 
