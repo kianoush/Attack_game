@@ -122,6 +122,17 @@ class Game:
             # check for moving object
             if self.moving_object:
                 self.moving_object.move(pos[0], pos[1])
+                tower_list = self.attack_towers[:] + self.support_towers[:]
+                collide = False
+                for tower in tower_list:
+                    if tower.collide(self.moving_object):
+                        collide = True
+                        tower.place_color = (255, 0, 0, 100)
+                        self.moving_object.place_color = (255, 0, 0, 100)
+                    else:
+                        tower.place_color = (0, 0, 255, 100)
+                        if not collide:
+                            self.moving_object.place_color = (0, 0, 255, 100)
 
             # main event loop
             for event in pygame.event.get():
@@ -227,21 +238,6 @@ class Game:
         :return: bool
         """
         # find to closest points
-        closest = []
-        for point in path:
-            dis = math.sqrt((tower.x - point[0])**2 + (tower.y - point[1])**2)
-            closest.append([dis, point])
-
-        closest.sort(key=lambda x: x[0])
-
-        x = closest[0][1]
-        y = closest[1][1]
-
-        coefficients = np.polyfit(x, y, 1)
-
-
-        #dis = abs(line_vectore[0] * tower.x + line_vectore[1]*tower.y + c)/math.sqrt(line_vectore[0]**2 + line_vectore[1]**2)
-
         return True
 
     def draw(self):
@@ -272,12 +268,16 @@ class Game:
         for en in self.enemys:
             en.draw(self.win)
 
-        # draw side menu
-        self.menu.draw(self.win)
+        # redraw selected tower
+        if self.selected_tower:
+            self.selected_tower.draw(self.win)
 
         # draw moving object
         if self.moving_object:
             self.moving_object.draw(self.win)
+
+        # draw side menu
+        self.menu.draw(self.win)
 
         # draw play pause button
         self.playPauseButton.draw(self.win)

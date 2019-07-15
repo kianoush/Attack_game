@@ -30,7 +30,7 @@ class ArcherTowerLong(Tower):
         self.tower_imgs = tower_imgs_1[:]
         self.archer_imgs = archer_imgs_1[:]
         self.archer_count = 0
-        self.range = 200
+        self.range = 120
         self.original_range = self.range
         self.inRange = False
         self.left = True
