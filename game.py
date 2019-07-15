@@ -13,6 +13,7 @@ import math
 import numpy as np
 import matplotlib.pyplot as plt
 pygame.font.init()
+pygame.init()
 
 path = [(12, 551), (159, 549), (334, 548), (405, 539), (454, 475), (455, 401), (521, 332), (620, 329), (668, 370), (690, 439), (715, 510), (771, 544), (843, 548), (1065, 542), (1269, 542), (1338, 544), (1191, 550)] #  change area (614, 429) ---> [(648, 397), (690, 381), (725, 353), (749, 318), (760, 275), (776, 229), (804, 194), (853, 172), (900, 167), (953, 164), (1007, 162), (1056, 172), (1084, 179), (1109, 194), (1129, 211), (1154, 218), (1185, 218), (1196, 217)]
 
@@ -30,11 +31,18 @@ buy_range = pygame.transform.scale(pygame.image.load(os.path.join("game_assets/"
 play_btn = pygame.transform.scale(pygame.image.load(os.path.join("game_assets/", "button_start.png")),(50,50))
 pause_btn = pygame.transform.scale(pygame.image.load(os.path.join("game_assets/", "button_pause.png")),(50,50))
 
+sound_btn = pygame.transform.scale(pygame.image.load(os.path.join("game_assets/", "button_sound.png")),(50,50))
+sound_btn_off = pygame.transform.scale(pygame.image.load(os.path.join("game_assets/", "button_sound_off.png")),(50,50))
+
 wave_bg = pygame.transform.scale(pygame.image.load(os.path.join("game_assets/", "wave.png")),(210,65))
 
 
 attack_tower_names = ["archer", "archer2"]
 support_tower_names = ["range", "damage"]
+
+# load music
+pygame.mixer.music.load(os.path.join("game_assets", "music.mp3"))
+
 
 # waves are in form
 # frequncy of enemies
@@ -56,10 +64,10 @@ waves = [
 ]
 
 class Game:
-    def __init__(self):
+    def __init__(self, win):
         self.width = 1350
         self.height = 700
-        self.win = pygame.display.set_mode((self.width, self.height))
+        self.win = win
         self.enemys = []
         self.attack_towers = []
         self.support_towers = []
@@ -80,7 +88,9 @@ class Game:
         self.wave = 0
         self.current_wave = waves[self.wave][:]
         self.pause = True
+        self.music_on = True
         self.playPauseButton = PlayPauseButton(play_btn, pause_btn, 10, self.height - 85)
+        self.soundButton = PlayPauseButton(sound_btn, sound_btn_off, 65, self.height - 85)
         #self.path = [] red point
 
     def gen_enemies(self):
@@ -104,7 +114,7 @@ class Game:
 
 
     def run(self):
-
+        pygame.mixer_music.play(1)
         run = True
         clock = pygame.time.Clock()
         while run:
@@ -165,6 +175,14 @@ class Game:
                         if self.playPauseButton.click(pos[0], pos[1]):
                             self.pause = not(self.pause)
                             self.playPauseButton.paused = self.pause
+
+                        if self.soundButton.click(pos[0], pos[1]):
+                            self.music_on = not(self.music_on)
+                            self.soundButton.paused = self.music_on
+                            if self.music_on:
+                                pygame.mixer.music.unpause()
+                            else:
+                                pygame.mixer.music.pause()
 
                         # look if you click on side menu
                         side_menu_button = self.menu.get_clicked(pos[0], pos[1])
@@ -282,6 +300,8 @@ class Game:
         # draw play pause button
         self.playPauseButton.draw(self.win)
 
+        # draw music toggle button
+        self.soundButton.draw(self.win)
         #draw lives
         text = self.life_font.render(str(self.lives), 1, (255,255,255))
         life = pygame.transform.scale(lives_img,(35,35))
@@ -318,6 +338,6 @@ class Game:
 
 
 
-
-g = Game()
+win = pygame.display.set_mode((1350, 700))
+g = Game(win)
 g.run()
