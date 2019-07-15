@@ -1,5 +1,7 @@
 # Attack_game
 
+![](pic2.png)
+
 ![](pic03.png)
 
 ![](pic02.png)
