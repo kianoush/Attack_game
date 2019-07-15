@@ -336,8 +336,3 @@ class Game:
         except Exception as e:
             print(str(e) + "NOT VALID NAME")
 
-
-
-win = pygame.display.set_mode((1350, 700))
-g = Game(win)
-g.run()
