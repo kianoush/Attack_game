@@ -118,7 +118,7 @@ class Game:
         run = True
         clock = pygame.time.Clock()
         while run:
-            clock.tick(200)
+            clock.tick(60)
 
             if self.pause == False:
                 # gen monsters
