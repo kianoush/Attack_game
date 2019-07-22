@@ -42,7 +42,7 @@ attack_tower_names = ["archer", "archer2"]
 support_tower_names = ["range", "damage"]
 
 # load music
-pygame.mixer.music.load(os.path.join("game_assets", "music.mp3"))
+pygame.mixer.music.load(os.path.join("game_assets", "music.wav"))
 
 
 # waves are in form
