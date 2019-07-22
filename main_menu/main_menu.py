@@ -3,7 +3,7 @@ from game import Game
 import os
 
 start_btn = pygame.image.load(os.path.join("game_assets", "button_play.png"))
-
+logo = pygame.image.load(os.path.join("game_assets", "logo.png"))
 
 class MainMenu:
     def __init__(self):
@@ -12,7 +12,7 @@ class MainMenu:
         self.bg = pygame.image.load(os.path.join("game_assets", "bg.png"))
         self.bg = pygame.transform.scale(self.bg, (self.width, self.height))
         self.win = pygame.display.set_mode((self.width, self.height))
-        self.btn = (self.width/2 - start_btn.get_width()/2, self.height/2 - start_btn.get_height()/2,  start_btn.get_width(),  start_btn.get_height())
+        self.btn = (self.width/2 - start_btn.get_width()/2, 340,  start_btn.get_width(),  start_btn.get_height())
 
     def run(self):
         run = True
@@ -37,5 +37,6 @@ class MainMenu:
 
     def draw(self):
         self.win.blit(self.bg, (0, 0))
+        self.win.blit(logo, (self.width/2 - logo.get_width()/2, 0))
         self.win.blit(start_btn, (self.btn[0], self.btn[1]))
         pygame.display.update()

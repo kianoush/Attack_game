@@ -49,7 +49,7 @@ pygame.mixer.music.load(os.path.join("game_assets", "music.mp3"))
 # ( #scorpian, #wizards, #clubs)
 
 waves = [
-    [20, 0, 0],
+    [20, 5, 3],
     [50, 0, 0],
     [100, 0, 0],
     [0, 20, 0],
@@ -114,7 +114,7 @@ class Game:
 
 
     def run(self):
-        pygame.mixer_music.play(1)
+        pygame.mixer_music.play(loops=-1)
         run = True
         clock = pygame.time.Clock()
         while run:
