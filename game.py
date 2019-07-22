@@ -9,13 +9,14 @@ from towers.supportTower import DamageTower, RangeTower
 from menu.menu import VerticalMenu, PlayPauseButton
 import time
 import random
-import math
-import numpy as np
-import matplotlib.pyplot as plt
 pygame.font.init()
 pygame.init()
 
-path = [(12, 551), (159, 549), (334, 548), (405, 539), (454, 475), (455, 401), (521, 332), (620, 329), (668, 370), (690, 439), (715, 510), (771, 544), (843, 548), (1065, 542), (1269, 542), (1338, 544), (1191, 550)] #  change area (614, 429) ---> [(648, 397), (690, 381), (725, 353), (749, 318), (760, 275), (776, 229), (804, 194), (853, 172), (900, 167), (953, 164), (1007, 162), (1056, 172), (1084, 179), (1109, 194), (1129, 211), (1154, 218), (1185, 218), (1196, 217)]
+path = [(12, 551), (159, 549), (334, 548), (405, 539), (454, 475), (455, 401), (521, 332), (620, 329), (668, 370),
+        (690, 439), (715, 510), (771, 544), (843, 548), (1065, 542), (1269, 542), (1338, 544), (1191, 550)]
+    #  change area (614, 429) ---> [(648, 397), (690, 381), (725, 353), (749, 318), (760, 275), (776, 229), (804, 194),
+    #  (853, 172), (900, 167), (953, 164), (1007, 162), (1056, 172), (1084, 179), (1109, 194), (1129, 211), (1154, 218),
+    #  (1185, 218), (1196, 217)]
 
 
 
@@ -49,6 +50,9 @@ pygame.mixer.music.load(os.path.join("game_assets", "music.mp3"))
 # ( #scorpian, #wizards, #clubs)
 
 waves = [
+    [20, 0, 0],
+    [0, 15, 0],
+    [0, 0, 10],
     [20, 5, 3],
     [50, 0, 0],
     [100, 0, 0],
@@ -122,7 +126,7 @@ class Game:
 
             if self.pause == False:
                 # gen monsters
-                if time.time() - self.timer >= random.randrange(1,5)/2:
+                if time.time() - self.timer >= random.randrange(1,6)/3:
                     self.timer = time.time()
                     self.gen_enemies()
 
@@ -247,7 +251,7 @@ class Game:
 
             self.draw()
 
-        pygame.quit()
+
 
     def point_to_line(self,tower):
         """
